@@ -1,0 +1,72 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div id="books">
+    <div class="teppa">
+        <div class="teppa-item">
+            <h1>The best online books</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est quaerat ea molestias quasi accusantium voluptates nesciunt numquam atque asperiores, soluta excepturi voluptate at facilis. Delectus beatae ipsum officiis quaerat!</p>
+        </div>
+    </div>
+    <div id="bookall">
+    </div>
+    <div class="container100 df-j">
+        <div class="container90 all-books">
+            <h1 class="top-sarlavha">All Books</h1>
+            {% if q %}
+            <div class="search-content">
+                <button>{{q}} <a href="?page=1#bookall"><i class="fas fa-times"></i></a></button>
+            </div>
+            {% endif %} {% if search %}
+            <div style="padding: 10px;">
+                <h1 style="text-align: center; color: red; font-size: 20px;">Siz qidirgan ma'lumot topilmadi</h1>
+            </div>
+            {% endif %}
+            <div class="all-books-items">
+                {% for book in books %}
+                <div class="books-item">
+                    <div class="books-item-content">
+                        <div class="books-img">
+                            <div class="book-img-cover">
+                                {% if book.cost %}
+                                <p>{{ book.cost }} <i class="fas fa-ruble-sign"></i></p>
+                                {% else %}
+                                <p>free</p>
+                                {% endif %}
+                            </div>
+                            <div class="book-img-coverj">
+                                <p>{{book.janr}}</p>
+                            </div>
+                            <img height="100%" src="static/{{book.book_img}}" alt="AAA">
+                        </div>
+                        <div class="books-text">
+                            <h1>{{book.name}}</h1>
+                            <p> <i>{{book.aftor}}</i> </p>
+                            <div class="link-all-button">
+                                <a href="book/{{book.id}}">Read</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %} {% if q %}
+                <div class="next-buttones">
+                    {% if books.has_previous %}<a href="?q={{q}}&&page={{books.previous_page_number}}#bookall"><i class="fas fa-angle-left"></i></a> {% endif %} {% for num in books.paginator.page_range %}
+                    <a href="?page={{num}}#bookall">{{num}}</a> {% endfor %} {% if books.has_next %}
+                    <a href="?q={{q}}&&page={{books.next_page_number}}#bookall"><i class="fas fa-angle-right"></i></a> {% endif %}
+                </div>
+                {% else %}
+                <div class="next-buttones">
+                    {% if books.has_previous %}<a href="?page={{books.previous_page_number}}#bookall"><i class="fas fa-angle-left"></i></a> {% endif %} {% for num in books.paginator.page_range %}
+                    <a href="?page={{num}}#bookall">{{num}}</a> {% endfor %} {% if books.has_next %}
+                    <a href="?page={{books.next_page_number}}#bookall"><i class="fas fa-angle-right"></i></a> {% endif %}
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    new Vue({
+        el:
+    })
+</script>
+{% endblock %}

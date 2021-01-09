@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'icons/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'js/axios.js' %}"></script>
+
+
+    <title>ReadBar</title>
+</head>
+
+<body>
+    <div class="nav-bar" id="nav">
+        <div class="container90 df-jcb">
+            <div class="nav-logo">
+                <h1>Read<span>Bar</span></h1>
+                {{request.user.id}}
+            </div>
+            <div class="nav-linkes df-jcb">
+                <div class="link">
+                    <div class="nav-link activer">
+                        <a href="{% url 'home'%}">Главный</a>
+                        <div class="active-nav-div"></div>
+                    </div>
+                    <div class="nav-link">
+                        <a href="{% url 'books'%}">Жанры</a>
+                    </div>
+                    <div class="nav-link">
+                        <a href="{% url 'janr'%}">Книги</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="{% url 'im' %}">
+                        <div class="user-item bg-r">
+                            <h1>A</h1>
+                        </div>
+                    </a>
+                    <a href="{% url 'addbook'%}">
+                        <div class="user-item bg-b">
+                            <h1><i class="fas fa-plus"></i></h1>
+                        </div>
+                    </a>
+                    <button class="user-item bg-b" v-on:click="activerSearch()">
+                            <h1><i class="fas fa-search"></i></h1>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="search" :class="searcha ? 'active-search':'' ">
+            <form action="{% url 'books'  %}#bookall" method="GET">
+                <div class="search-content-base">
+                    <div class="close-button"><button v-on:click="activerSearch()" type="button"><i class="fas fa-times"></i></button></div>
+                    <div class="search-input">
+                        <div class="input-search-div">
+                            <input type="text" name='q'>
+                            <button class="search-button-base" v-on:click="activerSearch()"><i class="fas fa-search"></i></button>
+                        </div>
+
+                    </div>
+                    <div class="search-button">
+                        <button type="submit" class="submit-search-button" v-on:click="activerSearch()">Search..</button>
+                    </div>
+                </div>
+            </form>
+            <dev class="search-cover" v-on:click="activerSearch()"></dev>
+        </div>
+    </div>
+
+    <div class="nav-back"></div>
+    {% block content %} {% endblock %}
+    <div class="footer">
+        <div class="footer-items">
+            <div class="footer-item">
+                <h1>Asosiy</h1>
+                <div class="link-footer">
+                    <a href="#"><i class="fas fa-circle-notch"></i> Glavni</a>
+                    <a href="#"><i class="fas fa-circle-notch"></i>Janr</a>
+                    <a href="#"><i class="fas fa-circle-notch"></i>Books</a>
+                </div>
+            </div>
+            <div class="footer-item">
+                <h1>Top janres</h1>
+                <div class="link-footer">
+                    <a href="#"><i class="fas fa-clipboard-check"></i> Dramma</a>
+                    <a href="#"><i class="fas fa-clipboard-check"></i> Kids</a>
+                    <a href="#"><i class="fas fa-clipboard-check"></i> Bolalik</a>
+
+                </div>
+            </div>
+            <div class="footer-item">
+                <h1>Accaunt</h1>
+                <div class="link-footer">
+                    <a href="{% url 'im' %}"><i class="fas fa-user-circle"></i> My accaunt</a>
+                    <a href="{% url 'logout' %}"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
+                </div>
+            </div>
+            <div class="footer-item">
+                <h1>Follow us</h1>
+                <div class="link-footer">
+                    <a href="#"><i class="fab fa-instagram"></i> Instagram</a>
+                    <a href="#"><i class="fab fa-telegram"></i> Telegram</a>
+                    <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+                    <a href="#"><i class="fab fa-linkedin"></i> Linkedin</a>
+                </div>
+            </div>
+
+            <div class="footer-item">
+                <img width="50%" style="border:1px solid rgb(143, 143, 143);" src="{% static 'images/qr-code.png' %}" alt="">
+                <h2 class="logo-footer"><span>Read</span>-Bar</h2>
+                <p>Online books free books..</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var nav = new Vue({
+        el: '#nav',
+        data: {
+            searcha: false
+        },
+        methods: {
+            activerSearch() {
+                this.searcha = !this.searcha
+            }
+        },
+    })
+</script>
+
+</html>

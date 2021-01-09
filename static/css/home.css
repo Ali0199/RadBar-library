@@ -1,0 +1,235 @@
+    #home {
+        background-color: #ececec;
+    }
+    
+    .teppa {
+        width: 100%;
+        padding: 50px 10px 50px 10px;
+        display: flex;
+        justify-content: center;
+        background: url('../images/home.jpg');
+        background-size: cover;
+        min-height: 500px;
+        align-items: center;
+    }
+    
+    .teppa-item {
+        width: 50%;
+        text-align: center;
+    }
+    
+    .free-soqqa {
+        width: 100%;
+        padding: 20px 10px;
+        display: flex;
+        justify-content: center;
+    }
+    
+    .free-soqqa-items {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 20px 20px;
+        transform: translateY(0px);
+        background-color: #fff;
+        /* box-shadow: 0px 0px 40px rgb(0, 0, 0, 0.2); */
+        flex-wrap: wrap;
+    }
+    
+    .free-soqqa-item {
+        width: 49%;
+        padding: 10px;
+    }
+    
+    .free-soqqa-item p {
+        font-size: 15px;
+        margin: 20px 0px;
+        padding: 10px 0px;
+    }
+    
+    .text-svg {
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+    
+    .text-svg h1 {
+        margin: 0px 0px 0px 10px;
+        font-size: 25px;
+        font-weight: 700;
+    }
+    
+    .free-link {
+        width: 100%;
+        margin: 15px 0px;
+        padding: 10px 0px;
+    }
+    
+    .free-link a {
+        padding: 10px 20px;
+        background: rgb(56, 175, 56);
+        color: #fff;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    
+    .top-books {
+        width: 90%;
+        padding: 20px 30px;
+        position: relative;
+        background-color: #fff;
+    }
+    
+    .top-sarlavha {
+        margin-bottom: 25px;
+        font-size: 30px;
+    }
+    
+    .books-items {
+        width: 100%;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        flex-wrap: wrap;
+        position: relative;
+        height: 450px;
+        overflow: hidden;
+    }
+    
+    .book-item {
+        width: 50%;
+        padding: 10px;
+        position: absolute;
+        transition: all 0.5s ease-in;
+    }
+    
+    .book-item1 {
+        left: -50%;
+        z-index: 0;
+        opacity: 0;
+    }
+    
+    .book-item2 {
+        left: 0%;
+        z-index: 1;
+    }
+    
+    .book-item3 {
+        left: 50%;
+        z-index: 1;
+    }
+    
+    .book-item4 {
+        left: 100%;
+        z-index: 0;
+        opacity: 0;
+    }
+    
+    .book-item-all {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        border-radius: 10px;
+        background-color: #fff;
+        padding: 0;
+        overflow: hidden;
+        box-shadow: 0 0 10px rgb(0, 0, 0, 0.1);
+    }
+    
+    .book-img {
+        width: 50%;
+        padding: 10px;
+        height: 100%;
+        overflow: hidden;
+        height: 250px;
+        position: relative;
+        overflow: hidden;
+    }
+    
+    .img-cost {
+        position: absolute;
+        padding: 10px;
+        background: rgb(56, 175, 56);
+        color: #fff;
+        font-weight: 600;
+        top: 0;
+        left: 0;
+        border-radius: 0px 0px 10px 0px;
+    }
+    
+    .book-text {
+        width: 50%;
+        padding: 10px;
+    }
+    
+    .book-text h2 {
+        margin: 10px 0px;
+    }
+    
+    .book-text p {
+        font-size: 14px;
+        margin: 5px 0px;
+        color: #4b4b4b;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+    }
+    
+    .book-text p span {
+        font-size: 20px;
+        margin-left: 10px;
+        color: red;
+        font-weight: 600;
+    }
+    
+    .book-read {
+        width: 100%;
+        padding: 20px 0px;
+    }
+    
+    .book-read a {
+        padding: 10px 20px;
+        background-color: rgb(56, 175, 56);
+        color: #fff;
+        font-weight: 600;
+        text-decoration: none;
+        border-radius: 5px;
+    }
+    
+    .book-title {
+        padding: 10px;
+        width: 100%;
+    }
+    
+    .book-title h3 {
+        margin: 10px 0px;
+    }
+    
+    .book-title p {
+        font-size: 14px;
+        color: #4b4b4b;
+        margin: 10px 0px;
+    }
+    
+    .button-carusel {
+        position: absolute;
+        top: 50%;
+        border: none;
+        background: none;
+        font-size: 30px;
+        font-weight: 600;
+        outline: none;
+        color: rgb(37, 131, 37);
+        cursor: pointer;
+        z-index: 3;
+    }
+    
+    .next {
+        left: 0px;
+    }
+    
+    .pre {
+        right: 0px;
+    }
+    /* Janres */

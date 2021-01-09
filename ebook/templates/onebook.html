@@ -1,0 +1,52 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+<div id="onebook" class="onebook">
+    <div class="onebook-items container90">
+        <div class="onebook-item">
+            <div class="onebook-img">
+                <img height="100%" src="/static/{{books.book_img}}" alt="AAA">
+            </div>
+        </div>
+        <div class="onebook-item">
+            <div class="onebook-text">
+                <h1>{{books.name}}</h1>
+                <table>
+                    <tr>
+                        <th>Aftor:</th>
+                        <td>{{books.aftor}}</td>
+                    </tr>
+                    <tr>
+                        <th>Janer:</th>
+                        <td>{{books.janr.janr}}</td>
+                    </tr>
+                    <tr>
+                        <th>Published:</th>
+                        <td>{{books.updated_at}}</td>
+                    </tr>
+                    <tr>
+                        <th>Published by:</th>
+                        <td>{{user.user.first_name}} {{user.user.last_name}}</td>
+                    </tr>
+                    <tr>
+                        <th>Cost:</th>
+                        <td>
+                            <span>{% if books.cost %}{{ books.cost }} <i class="fas fa-ruble-sign"></i>{% else %}
+                            free
+                            {% endif %} </span></td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">Title:</th>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                            {{books.title}}
+                        </td>
+                    </tr>
+                </table>
+                <button class="buynow-button"><a href="/static{{books.bookfile.url}}" >Buy now</a></button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

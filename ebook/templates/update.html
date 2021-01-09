@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'icons/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'js/axios.js' %}"></script>
+
+    <title>ReadBar</title>
+</head>
+
+<body>
+    <div class="addbooks" id='addbook'>
+        <form class="formadd" action="" method="POST" enctype="multipart/form-data" ref="form">
+            {% csrf_token %}
+            <div class="addbook-cover"></div>
+            <div class="close-add-book">
+                <a href="{% url 'home'%}"><i class="far fa-arrow-alt-circle-left"></i></a>
+            </div>
+            <div class="add-book-title">
+                <h1>Add books</h1>
+            </div>
+            <div class="input-content-50">
+                {% if form.errors.name %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element">
+                    <p>Kitob nomi</p>
+                    {{form.name}}
+                </div>
+            </div>
+            <div class="input-content-50">
+                {% if form.errors.aftor %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element">
+                    <p>Kitob Aftori</p>
+                    {{form.aftor}}
+                </div>
+            </div>
+            <div class="input-content-50">
+                {% if form.errors.janr %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="book-janr" :class="janr_activer ? 'activej': ''">
+                    <div class="janr-text" v-on:click="janr_activer=!janr_activer">
+                        <p>[[ janr_name ]]</p>
+                        {{form.janr}}
+                        <span class="active-down"><i class="fas fa-chevron-left"></i></span>
+                    </div>
+                    <div class="janr-item-dd">
+                        <div class="j-i-dd-i">
+                            <button v-for="(janr, index) in janres" type="button" v-on:click="janrDchanger(index)"> [[janr.janr]] </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-content-50">
+                {% if form.errors.cost %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element">
+                    <p>Kitob narxi</p>
+                    {{form.cost}}
+                    <span class="soqqa"><i class="fas fa-ruble-sign"></i></span>
+                </div>
+            </div>
+            <div class="input-content-w-100">
+                {% if form.errors.title %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element">
+                    <p>Kitob title</p>
+                    {{form.title}}
+                </div>
+            </div>
+
+            <div class="input-content-50">
+                {% if form.errors.book_img %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element-file">
+                    <div>
+                        <button type="button">
+                            Книжная картина
+                            {{form.book_img}}
+                        </button>
+                        <div class="input-file-name-div">
+                            <p class="input-file-name">[[ imgName ]]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="input-content-50">
+                {% if form.errors.bookfile %}
+                <p class="eror-list">To'dirish shart</p>
+                {% endif %}
+                <div class="input-element-file">
+                    <div>
+                        <button type="button">
+                            Книжный файл
+                            {{form.bookfile}}
+                        </button>
+                        <div class="input-file-name-div">
+                            <p class="input-file-name">[[ fileName ]]</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="book-submit">
+                <input type="submit" value="Сохранить">
+            </div>
+        </form>
+    </div>
+    <script>
+        function sendRequest(url, method, data) {
+            var r = axios({
+                method: method,
+                url: url,
+                data: data,
+                xsrfCookieName: 'csrftoken',
+                xsrfHeaderName: 'X-CSRFToken',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'multipart/form-data'
+                }
+
+            });
+            return r;
+
+        }
+        var app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#addbook',
+            data: {
+                janres: [],
+                janr_activer: false,
+                janr_id: 0,
+                janr_name: 'Выбери жанр',
+                fileName: 'Tanlanmagan !!!',
+                imgName: 'Tanlanmagan !!!',
+                items_input: ['', '', '', ''],
+
+            },
+            created() {
+                var r = sendRequest('', 'get')
+                    .then(response => (
+                        this.janres = response.data.janres,
+                        this.janr_id = response.data.jid,
+                        this.janr_name = response.data.jn,
+                        this.imgName = response.data.img_book,
+                        this.fileName = response.data.file_book
+                    ))
+            },
+            methods: {
+                janrDchanger(index) {
+                    this.janr_name = this.janres[index].janr
+                    this.janr_id = this.janres[index].id
+                    this.janr_activer = !this.janr_activer
+                },
+                getimgname(event) {
+                    var fileData = event.target.files[0];
+                    this.imgName = fileData.name;
+                },
+                getfilegname(event) {
+                    var fileData = event.target.files[0];
+                    this.fileName = fileData.name;
+                },
+
+            },
+        })
+    </script>
+</body>
+
+</html>

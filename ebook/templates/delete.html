@@ -1,0 +1,18 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="addbooks">
+    <h1>O'chirishni hohlaysizmi..? {{ book.name}} </h1> <br>
+    <form action="{% url 'delete' book.id %}" method="POST">
+        {% csrf_token %}
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="{% url 'home' %}">No</a>
+        <input type="submit" value="YES">
+
+    </form>
+</div>
+
+{% endblock %}

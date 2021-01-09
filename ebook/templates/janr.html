@@ -1,0 +1,26 @@
+{% extends 'base.html' %} {% block content %} {% load static %}
+
+<div class="teppa">
+    <div class="teppa-item">
+        <h1>The best online books</h1>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis est quaerat ea molestias quasi accusantium voluptates nesciunt numquam atque asperiores, soluta excepturi voluptate at facilis. Delectus beatae ipsum officiis quaerat!</p>
+    </div>
+</div>
+<div class="janres">
+    <div class="janr-items container90">
+        <h1>All Janres</h1>
+        {% for janr in janrs %}
+        <div class="janr-item">
+            <div class="janr-item-content">
+                <img height="100%" src="/static/{{janr.janr_img}}" alt="AAA">
+                <div class="janr-text">
+                    <a href="{% url 'books'  %}?q={{janr.janr}}#bookall">{{janr.janr}}</a>
+                    <div class="op5-cover"></div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'icons/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/nav.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/vue.js' %}"></script>
+    <script src="{% static 'js/axios.js' %}"></script>
+
+    <title>ReadBar</title>
+</head>
+
+<body>
+    <div class="addbooks" id='addbook'>
+        <form class="formadd" action="" method="POST" enctype="multipart/form-data" ref="form">
+            {% csrf_token %}
+            <div class="addbook-cover"></div>
+            <div class="close-add-book">
+                <a href="{% url 'home'%}"><i class="far fa-arrow-alt-circle-left"></i></a>
+            </div>
+            <div class="add-book-title">
+                <h1>User information</h1>
+            </div>
+            <div class="user-inputes">
+                <div class="show-img">
+                    <div class="img-content">
+                        <img width="100%" src="static/{{ img }}" alt="">
+                    </div>
+                </div>
+                <div class="update-img">
+                    <div class="img-change">
+                        <div>
+                            <button type="button" class="c-g">Upload
+                                {{form.user_img }}
+                            </button>
+                        </div>
+                        <div>
+                            <button type="button" class="c-r">Delete</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="user-inputes">
+                <div class="user-input-content">
+                    <div class="input-element">
+                        <p>First name</p>
+                        {{form.firstname}}
+                    </div>
+                    <div class="input-element">
+                        <p>Last name</p>
+                        {{form.lastname}}
+                    </div>
+                    <div class="input-element">
+                        <p>Email</p>
+                        {{form.email}}
+                    </div>
+                    <div class="input-element">
+                        <p>Phone</p>
+                        {{form.phone}}
+                    </div>
+                    <div>
+                        {{form.errors}}
+                    </div>
+                </div>
+            </div>
+            <div class="book-submit">
+                <input type="submit" value="Сохранить">
+            </div>
+        </form>
+    </div>
+    <script>
+        function sendRequest(url, method, data) {
+            var r = axios({
+                method: method,
+                url: url,
+                data: data,
+                xsrfCookieName: 'csrftoken',
+                xsrfHeaderName: 'X-CSRFToken',
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                    'Content-Type': 'multipart/form-data'
+                }
+
+            });
+            return r;
+
+        }
+        var app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#addbook',
+            data: {
+                janres: [],
+                janr_activer: false,
+                janr_id: 0,
+                janr_name: 'Выбери жанр',
+                fileName: 'Tanlanmagan !!!',
+                imgName: 'Tanlanmagan !!!',
+                items_input: ['', '', '', ''],
+
+            },
+            created() {
+                var r = sendRequest('', 'get')
+                    .then(response => (
+                        this.janres = response.data.janres,
+                        this.janr_id = response.data.jid,
+                        this.janr_name = response.data.jn,
+                        this.imgName = response.data.img_book,
+                        this.fileName = response.data.file_book
+                    ))
+            },
+            methods: {
+                janrDchanger(index) {
+                    this.janr_name = this.janres[index].janr
+                    this.janr_id = this.janres[index].id
+                    this.janr_activer = !this.janr_activer
+                },
+                getimgname(event) {
+                    var fileData = event.target.files[0];
+                    this.imgName = fileData.name;
+                },
+                getfilegname(event) {
+                    var fileData = event.target.files[0];
+                    this.fileName = fileData.name;
+                },
+
+            },
+        })
+    </script>
+</body>
+
+</html>
